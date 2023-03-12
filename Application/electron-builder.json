@@ -1,0 +1,149 @@
+{
+  "files": ["app/**/*", "package.json"],
+  "extraResources": ["build/icon.ico", "servers.json"],
+  "appId": "chat.stategy",
+  "protocols": {
+        "name": "stategy.chat",
+        "schemes": ["stategychat"]
+  },
+  "mac": {
+    "category": "public.app-category.productivity",
+    "target": ["dmg", "pkg", "zip", "mas"],
+    "icon": "build/icon.icns",
+    "bundleVersion": "110",
+    "helperBundleId": "chat.stategy.electron.helper",
+    "type": "distribution",
+    "artifactName": "stategychat-${version}-${os}.${ext}",
+    "extendInfo": {
+      "NSMicrophoneUsageDescription": "I need access to your microphone to record the audio you want to send.",
+      "NSCameraUsageDescription": "I need access to your camera to record the video you want to send."
+    },
+    "hardenedRuntime": true,
+    "gatekeeperAssess": false,
+    "provisioningProfile": "embedded.provisionprofile"
+  },
+  "dmg": {
+    "background": "build/background.png",
+    "contents": [
+      {
+        "type": "dir",
+        "x": 100,
+        "y": 211
+      },
+      {
+        "type": "link",
+        "path": "/Applications",
+        "x": 500,
+        "y": 211
+      }
+    ]
+  },
+  "pkg": {
+    "isRelocatable": false,
+    "overwriteAction": "upgrade"
+  },
+  "mas": {
+    "entitlements": "build/entitlements.mas.plist",
+    "entitlementsInherit": "build/entitlements.mas.inherit.plist",
+    "entitlementsLoginHelper": "build/entitlements.mas.inherit.plist",
+    "hardenedRuntime": false,
+    "asarUnpack": ["node_modules"],
+    "artifactName": "stategychat-${version}-mas.${ext}"
+  },
+  "win": {
+    "target": [
+      {
+        "target": "nsis",
+        "arch": ["x64", "ia32"]
+      },
+      {
+        "target": "msi",
+        "arch": ["x64", "ia32"]
+      },
+      {
+        "target": "zip",
+        "arch": ["x64", "ia32"]
+      }
+    ],
+    "icon": "build/icon.ico",
+    "publisherName": "stategy.chat Technologies Corp.",
+    "legalTrademarks": "",
+    "verifyUpdateCodeSignature": true,
+    "requestedExecutionLevel": "asInvoker",
+    "signAndEditExecutable": true,
+    "signDlls": false,
+    "artifactName": "stategychat-${version}-${os}-${arch}.${ext}"
+  },
+  "nsis": {
+    "oneClick": false,
+    "perMachine": false,
+    "allowElevation": true,
+    "allowToChangeInstallationDirectory": true,
+    "installerIcon": "build/installerIcon.ico",
+    "uninstallerIcon": "build/uninstallerIcon.ico",
+    "installerSidebar": "build/installerSidebar.bmp",
+    "uninstallerSidebar": "build/uninstallerSidebar.bmp",
+    "uninstallDisplayName": "${productName} ${version}",
+    "include": "build/installer.nsh",
+    "license": "LICENSE",
+    "deleteAppDataOnUninstall": false,
+    "displayLanguageSelector": false,
+    "unicode": true,
+    "warningsAsErrors": true,
+    "runAfterFinish": true,
+    "createDesktopShortcut": "always",
+    "createStartMenuShortcut": true,
+    "menuCategory": false
+  },
+  "appx": {
+    "backgroundColor": "#2f343d",
+    "languages": ["en-US", "en-GB", "pt-BR"],
+    "identityName": "0B67C87C.stategyChat",
+    "publisher": "CN=BBFF7141-7CAF-4FCD-8930-083FCDE6E854",
+    "publisherDisplayName": "stategy.chat Technologies Corp.",
+    "applicationId": "stategyChat",
+    "displayName": "stategy.chat"
+  },
+  "linux": {
+    "target": ["AppImage", "tar.gz", "deb", "rpm", "snap", "flatpak"],
+    "executableName": "stategychat-desktop",
+    "category": "GNOME;GTK;Network;InstantMessaging",
+    "desktop": {
+      "StartupWMClass": "stategy.chat",
+      "MimeType": "x-scheme-handler/stategychat"
+    },
+    "artifactName": "stategychat-${version}-${os}-${arch}.${ext}"
+  },
+  "rpm": {
+    "fpm": ["--rpm-rpmbuild-define=_build_id_links none"]
+  },
+  "snap": {
+    "plugs": [
+      "desktop",
+      "desktop-legacy",
+      "home",
+      "x11",
+      "unity7",
+      "browser-support",
+      "network",
+      "gsettings",
+      "pulseaudio",
+      "opengl",
+      "camera",
+      "audio-playback",
+      "audio-record",
+      "screen-inhibit-control",
+      "upower-observe"
+    ]
+  },
+  "afterSign": "./build/notarize.js",
+  "generateUpdatesFilesForAllChannels": true,
+  "publish": [
+    {
+      "provider": "github",
+      "owner": "stategyChat",
+      "repo": "stategy.chat.Electron",
+      "vPrefixedTagName": false
+    }
+  ]
+}
